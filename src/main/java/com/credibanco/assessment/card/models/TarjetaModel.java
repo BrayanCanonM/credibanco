@@ -17,6 +17,7 @@ public class TarjetaModel
 	private String tipo;
 	private String telefono;
 	private String estado;
+	private String numValidacion;
 	
 	
 	public int getIdTarjeta() {
@@ -58,8 +59,14 @@ public class TarjetaModel
 	public String getEstado() {
 		return estado;
 	}
-	public void setEstado(String estado) {
-		this.estado = estado;
+	public void setEstado(String numValidacion) {
+		this.estado = numValidacion;
+	}
+	public String getNumValidacion() {
+		return numValidacion;
+	}
+	public void setNumValidacion(String numValidacion) {
+		this.numValidacion = numValidacion;
 	}
 	
 	

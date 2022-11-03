@@ -29,7 +29,7 @@ public class TarjetaController
 	}
 	
 	@PostMapping()
-	public TarjetaModel saveTarjeta(@RequestBody TarjetaModel tarjeta) {
+	public String saveTarjeta(@RequestBody TarjetaModel tarjeta) {
 		return this.tarjetaService.saveTarjeta(tarjeta);
 	}
 	
@@ -38,9 +38,15 @@ public class TarjetaController
 		return this.tarjetaService.getTarjetaByID(id);
 	}
 	
-	@DeleteMapping(path = "/{id}")
-	public String deleteTarjeta(@PathVariable("id") int id) {
-		boolean result = this.tarjetaService.deleteTarjeta(id);
+	@GetMapping(path = "/{id}/{numVal}")
+	public boolean enrolarTarjeta(@PathVariable("id") int id, @PathVariable("numVal") String numVal){
+		return this.tarjetaService.enrolarTarjeta(id, numVal);
+	}
+	
+	@DeleteMapping(path = "/{id}/{numVal}")
+	public String deleteTarjeta(@PathVariable("id") int id, @PathVariable("numVal") String numVal)
+	{
+		boolean result = this.tarjetaService.deleteTarjeta(id, numVal);
 		String rta = "";
 		if(result) {
 			rta = "Se eliminó correctamente la tarjeta " + id;
