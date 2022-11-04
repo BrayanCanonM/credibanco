@@ -39,7 +39,7 @@ public class TarjetaController
 	}
 	
 	@GetMapping(path = "/{id}/{numVal}")
-	public boolean enrolarTarjeta(@PathVariable("id") int id, @PathVariable("numVal") String numVal){
+	public String enrolarTarjeta(@PathVariable("id") int id, @PathVariable("numVal") String numVal){
 		return this.tarjetaService.enrolarTarjeta(id, numVal);
 	}
 	

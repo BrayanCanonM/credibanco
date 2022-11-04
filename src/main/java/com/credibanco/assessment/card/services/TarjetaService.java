@@ -18,13 +18,17 @@ public class TarjetaService {
 	public static final String SUCCESS = "00, Éxito";
 	public static final String FAILED = "01, Falló";
 	
+	public static final String NO_EXISTE = "01, Tarjeta no existe";
+	public static final String NO_VALIDO = "02, Número de validación inválido";
+	
 	public ArrayList<TarjetaModel> getTarjetas()
 	{
 		return (ArrayList<TarjetaModel>)tarjetaDAO.findAll();
 	}
 	
-	public boolean enrolarTarjeta(int id, String numVal) 
+	public String enrolarTarjeta(int id, String numVal) 
 	{
+		String rta = "";
 		try {
 			Optional<TarjetaModel> encontrada = tarjetaDAO.findById(id);
 			
@@ -33,13 +37,16 @@ public class TarjetaService {
 				
 				if(encontrada.get().getNumValidacion().equals(numVal)) {
 					tarjetaDAO.save(encontrada.get());
+					rta = SUCCESS+", "+darTarjetaEnmascarada(encontrada.get().getNumeroTarjeta());
+				}else {
+					rta = NO_VALIDO;
 				}
 				
 			}
 			
-			return true;
+			return rta;
 		} catch (Exception e) {
-			return false;
+			return rta = NO_EXISTE;
 		}
 	}
 	
@@ -64,7 +71,7 @@ public class TarjetaService {
 		{
 			rta = FAILED +", "+val;
 		}
-		rta = rta+darTarjetaEnmascarada(tarjeta.getNumeroTarjeta());
+		rta = rta+", "+darTarjetaEnmascarada(tarjeta.getNumeroTarjeta());
 		
 		return rta;
 	}
@@ -92,13 +99,14 @@ public class TarjetaService {
 	
 	public boolean deleteTarjeta(int id, String numVal) {
 		try {
-			
+			boolean rta= false;
 			Optional<TarjetaModel> encontrada = tarjetaDAO.findById(id);
 			if(encontrada.get().getNumValidacion().equals(numVal)) {
 				tarjetaDAO.deleteById(id);
+				rta = true;
 			}
 			
-			return true;
+			return rta;
 		} catch (Exception e) {
 			return false;
 		}
