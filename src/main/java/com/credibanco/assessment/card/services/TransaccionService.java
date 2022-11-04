@@ -31,6 +31,7 @@ public class TransaccionService
 
 	public ArrayList<TransaccionModel> getTransaccion()
 	{
+		
 		return (ArrayList<TransaccionModel>)transaccionDAO.findAll();
 	}
 	
